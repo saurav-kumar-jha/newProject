@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROFILE USING API</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container {
+            height: 250px;
+            width: 230px;
+            border-radius: 10px;
+            box-shadow: 0 0 2px gray;
+            padding: 20px 15px;
+            background-color: rgb(227, 230, 233);
+            position: relative;
+        }
+
+        .img {
+            height: 80px;
+            width: 80px;
+            /* background-color: red; */
+            margin-left: 70px;
+            /* border-radius: 50%; */
+        }
+        .img img{
+            height: 80px;
+            width: 80px;
+            border-radius: 50%;
+        }
+        .form {
+            margin: 40px 0 0 0;
+        }
+
+        .form p {
+            text-align: left;
+            font-size: 17px;
+            font-weight: 600;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <button onclick="profile()">MAKE PROFILE</button> -->
+    <div class="container" style="display: none;">
+        <div class="img">
+            <img src="" alt="profile.png">
+        </div>
+        <div class="form">
+            <p>NAME:SAURAV KUMAR JHA</p>
+            <p>ID:44511614</p>
+            <p>FOLLOWER:201</p>
+        </div>
+    </div>
+    <script>
+        var url = 'https://api.github.com/users/hiteshchoudhary'
+        var api = new XMLHttpRequest();
+        api.open('GET', url)
+        api.onreadystatechange = function () {
+            console.log(api.readyState);
+            if (api.readyState === 4) {
+                var data = JSON.parse(this.responseText)
+                console.log(data.avatar_url);
+                console.log(data);
+                var img = data.avatar_url
+                var name = data.login.toUpperCase()
+                var id = data.id
+                var follower = data.followers
+                function profile(img, name, id,follower){
+                    document.querySelector(".container").style.display="block"
+                    let html = `<div class="container">
+                                    <div class="img">
+                                        <img src="${img}" alt="">
+                                    </div>
+                                    <div class="form">
+                                        <p>NAME:${name}</p>
+                                        <p>ID:${id}</p>
+                                        <p>FOLLOWER:${follower}</p>
+                                    </div>
+                                </div>`;
+                    document.querySelector(".container").innerHTML=document.querySelector(".container").innerHTML + html
+                    
+                }
+                profile(img, name,id,follower)
+               
+            }
+        }
+        api.send()
+uppercase
+    </script>
+</body>
+
+</html>
